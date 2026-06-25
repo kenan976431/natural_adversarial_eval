@@ -1,0 +1,36 @@
+# configs/classification.yaml
+# Zero-shot image classification experiment configuration
+
+experiment:
+  name: "classification_natural_adversarial"
+  output_dir: "results/classification"
+  device: "cuda"
+  seed: 42
+
+data:
+  imagenet_root:   null          # Set to your ImageNet-1K val path, or leave null
+  imagenet_a:      "hf_auto"    # "hf_auto" = auto-download from HuggingFace
+  imagenet_typo:   "synthetic"  # generated on-the-fly from imagenet_root
+  rta100_root:     null          # Set to local RTA-100 path
+  langadv_root:    "datasets/langadv"
+  batch_size:      64
+  num_workers:     4
+
+models:
+  # Comment out any model you don't want to evaluate
+  clip:
+    - "openai/clip-vit-base-patch16"
+    - "openai/clip-vit-base-patch32"
+    - "openai/clip-vit-large-patch14"
+  siglip2:
+    - "google/siglip2-base-patch16-224"
+    - "google/siglip2-large-patch16-256"
+  blip2:           []   
+  paligemma2:      []
+
+datasets:
+  # Datasets to evaluate on (comment out to skip)
+  - imagenet-a
+  - imagenet-typo
+  - rta100
+  - langadv
